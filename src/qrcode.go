@@ -11,3 +11,7 @@ func main() {
 	ioutil.WriteFile("qrcode.png",qrcode,0644)
 
 }
+
+func GenerateQRCode(code string)[]byte {
+	return nil
+}
