@@ -2,16 +2,22 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"image"
+	"image/png"
+
+	"os"
+	"io"
 )
 
 func main() {
 	fmt.Println("Hello QR Code")
-	qrcode := GenerateQRCode("555-8866")
-	ioutil.WriteFile("qrcode.png",qrcode,0644)
+	file,_ := os.Create("qrcode.png")
+	defer file.Close()
+	GenerateQRCode(file, "555-8866")
 
 }
 
-func GenerateQRCode(code string)[]byte {
-	return []byte{0xFF}
+func GenerateQRCode(w io.Writer,code string) error{
+	img := image.NewNRGBA(image.Rect(0,0,21,21))
+	return png.Encode(w,img)
 }
